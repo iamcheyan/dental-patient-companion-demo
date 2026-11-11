@@ -1,0 +1,136 @@
+{
+  "yamada": [
+    {
+      "id": "today",
+      "questions": {
+        "zh": ["今天做了什么", "今天治疗了什么", "今天做了啥"],
+        "ja": ["今日の治療内容", "今日何をした", "きょうのちりょう"],
+        "en": ["what was done today", "today's procedure", "what happened today"]
+      },
+      "answers": {
+        "zh": "进行了根管治疗第三阶段，清理牙根感染区域并进行了临时封闭。",
+        "ja": "根管治療の第3段階として、歯根の感染部位を清掃し、仮封を行いました。",
+        "en": "We completed stage 3 of the root canal: cleaned the infected root area and placed a temporary seal."
+      }
+    },
+    {
+      "id": "why-two-more",
+      "questions": {
+        "zh": ["为什么还要来两次", "为什么还要复诊", "为什么还要两次"],
+        "ja": ["あと何回通院する必要がありますか", "なぜあと2回", "あと何回必要か"],
+        "en": ["how many visits are left", "why two more visits", "why come back twice"]
+      },
+      "answers": {
+        "zh": "还需要完成根管充填和牙冠安装。",
+        "ja": "根管充填とクラウン装着が残っているためです。",
+        "en": "We still need to complete the canal filling and place the crown."
+      }
+    },
+    {
+      "id": "when-finish",
+      "questions": {
+        "zh": ["什么时候结束", "什么时候完成", "治疗何时结束"],
+        "ja": ["治療はいつ終わるか", "いつ終わりますか", "終了はいつ"],
+        "en": ["when will it finish", "when does treatment end", "when will it be done"]
+      },
+      "answers": {
+        "zh": "预计还需两次治疗。",
+        "ja": "あと2回の通院で完了する見込みです。",
+        "en": "About two more visits are expected."
+      }
+    },
+    {
+      "id": "pain",
+      "questions": {
+        "zh": ["有点疼正常吗", "疼痛正常吗", "会痛吗"],
+        "ja": ["痛みは普通ですか", "少し痛いのは普通", "痛みは大丈夫"],
+        "en": ["is pain normal", "does it hurt", "mild pain normal"]
+      },
+      "answers": {
+        "zh": "轻微疼痛属于常见现象，如持续恶化请联系诊所。",
+        "ja": "軽い痛みはよくある反応です。悪化が続く場合はクリニックへご連絡ください。",
+        "en": "Mild discomfort is common. Contact the clinic if it keeps getting worse."
+      }
+    },
+    {
+      "id": "progress",
+      "questions": {
+        "zh": ["治疗进度", "现在到哪一步", "进度如何"],
+        "ja": ["現在の進捗", "いまどの段階", "進捗を教えて"],
+        "en": ["treatment progress", "current stage", "how far along"]
+      },
+      "answers": {
+        "zh": "当前为第 3/5 步：根管清洗。已完成初诊与神经处理，剩余充填与牙冠。",
+        "ja": "現在は 3/5 段階（根管洗浄）です。初診と神経処置は完了し、充填とクラウンが残っています。",
+        "en": "You are on step 3 of 5 (canal cleaning). Initial visit and nerve treatment are done; filling and crown remain."
+      }
+    }
+  ],
+  "sato": [
+    {
+      "id": "today",
+      "questions": {
+        "zh": ["今天做了什么", "今天治疗了什么", "今天做了啥"],
+        "ja": ["今日の治療内容", "今日何をした", "きょうのちりょう"],
+        "en": ["what was done today", "today's procedure", "what happened today"]
+      },
+      "answers": {
+        "zh": "完成植体植入手术。",
+        "ja": "インプラント植体の埋入手術を完了しました。",
+        "en": "The implant fixture placement surgery was completed."
+      }
+    },
+    {
+      "id": "healing",
+      "questions": {
+        "zh": ["愈合需要多久", "多久愈合", "愈合时间"],
+        "ja": ["治癒にはどのくらい", "治るまでどのくらい", "オッセオインテグレーション"],
+        "en": ["how long to heal", "healing time", "osseointegration"]
+      },
+      "answers": {
+        "zh": "通常需要数月让植体与骨组织结合。",
+        "ja": "通常、数か月かけて植体と骨が結合します。",
+        "en": "It usually takes several months for the implant to bond with the bone."
+      }
+    },
+    {
+      "id": "when-finish",
+      "questions": {
+        "zh": ["什么时候结束", "什么时候完成", "治疗何时结束"],
+        "ja": ["治療はいつ終わるか", "いつ終わりますか", "終了はいつ"],
+        "en": ["when will it finish", "when does treatment end", "when will it be done"]
+      },
+      "answers": {
+        "zh": "预计完成愈合后进行牙冠安装。",
+        "ja": "治癒完了後に上部構造（クラウン）を装着する予定です。",
+        "en": "After healing is complete, the crown will be placed."
+      }
+    },
+    {
+      "id": "swelling",
+      "questions": {
+        "zh": ["肿胀正常吗", "会肿吗", "肿了怎么办"],
+        "ja": ["腫れは普通ですか", "腫れるのは普通", "腫れは大丈夫"],
+        "en": ["is swelling normal", "swelling ok", "is it normal to swell"]
+      },
+      "answers": {
+        "zh": "轻度肿胀属于常见反应。",
+        "ja": "軽い腫れはよくある反応です。",
+        "en": "Mild swelling is a common reaction."
+      }
+    },
+    {
+      "id": "progress",
+      "questions": {
+        "zh": ["治疗进度", "现在到哪一步", "进度如何", "为什么还要复诊"],
+        "ja": ["現在の進捗", "いまどの段階", "あと何回必要か"],
+        "en": ["treatment progress", "current stage", "how many visits left"]
+      },
+      "answers": {
+        "zh": "当前为第 3/5 步：植体植入。已完成 CT 与骨量评估，剩余愈合与上牙冠。",
+        "ja": "現在は 3/5 段階（植体埋入）です。CT と骨量評価は完了し、治癒と上部構造が残っています。",
+        "en": "You are on step 3 of 5 (implant placement). CT and bone assessment are done; healing and crown remain."
+      }
+    }
+  ]
+}
