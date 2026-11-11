@@ -6,6 +6,7 @@ type Body = {
   patientId?: string;
   message?: string;
   history?: ChatMessage[];
+  sessionId?: string;
 };
 
 export async function POST(req: Request) {
@@ -30,12 +31,16 @@ export async function POST(req: Request) {
       patientId,
       message,
       history: Array.isArray(body.history) ? body.history : [],
+      sessionId: body.sessionId?.trim() || undefined,
     });
     return NextResponse.json({
       reply: result.content,
       source: result.source,
       model: result.model,
-      route: "magpie/default",
+      route: result.route,
+      sessionId: result.sessionId || null,
+      agent: "hermes",
+      magpie: "group/default",
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "error";

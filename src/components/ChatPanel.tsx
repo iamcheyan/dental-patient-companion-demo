@@ -17,6 +17,8 @@ export function ChatPanel({
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [routeLabel, setRouteLabel] = useState("Hermes · magpie/default");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,15 +42,27 @@ export function ChatPanel({
           patientId,
           message: content,
           history: messages.map((m) => ({ role: m.role, content: m.content })),
+          sessionId: sessionId || undefined,
         }),
       });
       const data = (await res.json()) as {
         reply?: string;
         error?: string;
         model?: string;
+        route?: string;
+        sessionId?: string | null;
+        agent?: string;
       };
       if (!res.ok || !data.reply) {
         throw new Error(data.error || `http_${res.status}`);
+      }
+      if (data.sessionId) setSessionId(data.sessionId);
+      if (data.route) {
+        setRouteLabel(
+          data.agent === "hermes"
+            ? `Hermes · ${data.model || "magpie/default"}`
+            : data.route,
+        );
       }
       setMessages((prev) => [
         ...prev,
@@ -83,12 +97,10 @@ export function ChatPanel({
           <p className="text-sm font-semibold text-slate-900">
             あなた専用の歯科アシスタント
           </p>
-          <p className="text-xs text-slate-500">
-            Patient Companion · magpie/default
-          </p>
+          <p className="text-xs text-slate-500">{routeLabel}</p>
         </div>
         <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700">
-          デモ · モックデータ
+          Hermes Agent · Mock
         </span>
       </header>
 

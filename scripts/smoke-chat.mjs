@@ -26,7 +26,7 @@ for (const c of cases) {
   const ok = res.ok && c.expect.test(reply);
   console.log(
     (ok ? "OK " : "FAIL") +
-      `  ${c.patientId}  ${JSON.stringify(c.message)}  model=${data.model || "-"}  route=${data.route || "-"}`,
+      `  ${c.patientId}  ${JSON.stringify(c.message)}  model=${data.model || "-"}  route=${data.route || "-"}  source=${data.source || "-"}  agent=${data.agent || "-"}`,
   );
   if (!ok) {
     failed += 1;

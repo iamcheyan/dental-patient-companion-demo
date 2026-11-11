@@ -100,6 +100,28 @@ tailscale serve status   # 应不再指向 3010
 
 注意：`serve reset` 会清掉本机所有 serve 规则。若机器上还有其它 serve 路径，请改用精确删除当前 3010 映射的方式，而不是整表 reset。
 
+## Agent 行为（Hermes + Magpie）
+
+聊天**不再直连 Magpie 裸 completion**。服务端调用：
+
+1. （若已启用）Hermes API Server `http://127.0.0.1:8642/v1` → 全量 Hermes Agent  
+2. 否则 `hermes chat --oneshot`（`--provider custom` + Magpie `group/default`）  
+3. 再否则本地 mock KB 兜底  
+
+产品名 `magpie/default` = 线缆模型 id `group/default`。
+
+环境变量（`.env.local`，不入库）：
+
+- `MAGPIE_GATEWAY_KEY` / `MAGPIE_BASE_URL` / `MAGPIE_MODEL=group/default`
+- `HERMES_API_BASE_URL` / `HERMES_API_KEY` / `HERMES_MODEL=hermes-agent`（API Server 启用后）
+
+启用 API Server（需在 **gateway 外** 的 shell 执行一次重启）：
+
+```bash
+# ~/.hermes/.env 已含 API_SERVER_ENABLED=true 与 key
+systemctl --user restart hermes-gateway.service
+```
+
 ## Agent 行为
 
 - 不得编造患者信息；只使用 `mock/patients.json` + `mock/knowledge-base.json`
