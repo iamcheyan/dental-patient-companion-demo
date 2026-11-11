@@ -25,8 +25,8 @@ export function PatientHero({ patient }: { patient: Patient }) {
             </span>
           </div>
           <p className="mt-1 text-sm text-slate-600">
-            治疗项目 · {patient.treatment}
-            {patient.tooth ? ` · ${patient.tooth}` : ""}
+            治療内容 · {patient.treatmentJa}
+            {patient.toothJa ? ` · ${patient.toothJa}` : ""}
           </p>
           <p className="mt-0.5 text-xs text-slate-400">{patient.clinic}</p>
         </div>
@@ -36,11 +36,11 @@ export function PatientHero({ patient }: { patient: Patient }) {
         <div className="mb-2 flex items-end justify-between gap-3">
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-              治疗进度
+              治療の進捗
             </p>
             <p className="text-sm text-slate-700">
-              第 {patient.currentStep} / {patient.totalStep} 步 · 预计还需{" "}
-              {patient.remainingVisits} 次
+              ステップ {patient.currentStep} / {patient.totalStep} · 残り通院{" "}
+              {patient.remainingVisits} 回
             </p>
           </div>
           <p className="text-2xl font-semibold tabular-nums text-sky-700">
@@ -57,13 +57,13 @@ export function PatientHero({ patient }: { patient: Patient }) {
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <div className="rounded-2xl bg-sky-50/80 p-3.5 ring-1 ring-sky-100">
-          <p className="text-xs font-medium text-sky-700">今日治疗</p>
+          <p className="text-xs font-medium text-sky-700">本日の治療</p>
           <p className="mt-1 text-sm leading-relaxed text-slate-800">
-            {patient.todayProcedure}
+            {patient.todayProcedureJa}
           </p>
         </div>
         <div className="rounded-2xl bg-emerald-50/80 p-3.5 ring-1 ring-emerald-100">
-          <p className="text-xs font-medium text-emerald-700">下次预约</p>
+          <p className="text-xs font-medium text-emerald-700">次回予約</p>
           <p className="mt-1 text-lg font-semibold tabular-nums text-slate-900">
             {patient.nextVisitDisplay}
           </p>
@@ -77,7 +77,7 @@ export function PatientHero({ patient }: { patient: Patient }) {
 export function TreatmentTimeline({ patient }: { patient: Patient }) {
   return (
     <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.06)] sm:p-6">
-      <h2 className="text-sm font-semibold text-slate-900">治疗时间轴</h2>
+      <h2 className="text-sm font-semibold text-slate-900">治療タイムライン</h2>
       <ol className="mt-4 space-y-3">
         {patient.steps.map((step, idx) => (
           <li key={step.id} className="flex gap-3">
@@ -94,18 +94,13 @@ export function TreatmentTimeline({ patient }: { patient: Patient }) {
                   : "bg-slate-50"
               }`}
             >
-              <p className="text-sm font-medium text-slate-900">
-                {step.label}
-                <span className="ml-2 text-xs font-normal text-slate-400">
-                  {step.labelJa}
-                </span>
-              </p>
+              <p className="text-sm font-medium text-slate-900">{step.labelJa}</p>
               <p className="text-xs text-slate-500">
                 {step.status === "done"
-                  ? "已完成"
+                  ? "完了"
                   : step.status === "current"
-                    ? "进行中"
-                    : "待进行"}
+                    ? "進行中"
+                    : "予定"}
               </p>
             </div>
           </li>

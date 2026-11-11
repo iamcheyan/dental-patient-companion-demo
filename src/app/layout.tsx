@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dental Patient Companion Demo",
+  title: "デンタル・ペイシェント・コンパニオン デモ",
   description:
-    "AI companion demo for dental patients — mock data only, magpie/default chat route.",
+    "歯科患者向け AI コンパニオン・デモ（モックデータ / magpie/default）",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="zh-Hans"
+      lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[radial-gradient(ellipse_at_top,_#e0f2fe_0%,_#f8fafc_45%,_#f1f5f9_100%)] text-slate-900">

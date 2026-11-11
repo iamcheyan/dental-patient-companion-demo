@@ -63,25 +63,32 @@ export function ChatPanel({
 
   const suggestions =
     patientId === "sato"
-      ? ["今天做了什么？", "愈合需要多久？", "肿胀正常吗？", "What was done today?"]
+      ? [
+          "今日は何をしましたか？",
+          "治癒にはどのくらい必要ですか？",
+          "腫れは普通ですか？",
+          "治療はいつ終わりますか？",
+        ]
       : [
-          "今天做了什么？",
-          "为什么还要来两次？",
-          "有点疼正常吗？",
+          "今日は何をしましたか？",
           "あと何回通院する必要がありますか？",
+          "少し痛いのは普通ですか？",
+          "治療はいつ終わりますか？",
         ];
 
   return (
     <section className="flex min-h-0 flex-1 flex-col rounded-3xl border border-slate-200/80 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.06)]">
       <header className="flex items-center justify-between border-b border-slate-100 px-4 py-3 sm:px-5">
         <div>
-          <p className="text-sm font-semibold text-slate-900">专属牙科助手</p>
+          <p className="text-sm font-semibold text-slate-900">
+            あなた専用の歯科アシスタント
+          </p>
           <p className="text-xs text-slate-500">
             Patient Companion · magpie/default
           </p>
         </div>
         <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700">
-          Demo · Mock only
+          デモ · モックデータ
         </span>
       </header>
 
@@ -105,7 +112,7 @@ export function ChatPanel({
         {busy && (
           <div className="flex justify-start">
             <div className="rounded-2xl rounded-bl-md bg-slate-50 px-3.5 py-2.5 text-sm text-slate-500 ring-1 ring-slate-100">
-              正在理解您的问题…
+              質問を理解しています…
             </div>
           </div>
         )}
@@ -126,7 +133,7 @@ export function ChatPanel({
           ))}
         </div>
         {error && (
-          <p className="text-xs text-rose-600">发送失败：{error}</p>
+          <p className="text-xs text-rose-600">送信に失敗しました：{error}</p>
         )}
         <form
           className="flex items-end gap-2"
@@ -139,7 +146,7 @@ export function ChatPanel({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             rows={1}
-            placeholder="用中文 / 日本語 / English 提问…"
+            placeholder="日本語で質問できます（中文 / English も可）…"
             className="max-h-28 min-h-[44px] flex-1 resize-none rounded-2xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 outline-none ring-sky-200 placeholder:text-slate-400 focus:border-sky-300 focus:bg-white focus:ring-2"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -153,7 +160,7 @@ export function ChatPanel({
             disabled={busy || !input.trim()}
             className="inline-flex h-11 items-center justify-center rounded-2xl bg-sky-600 px-4 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:bg-slate-300"
           >
-            发送
+            送信
           </button>
         </form>
       </div>

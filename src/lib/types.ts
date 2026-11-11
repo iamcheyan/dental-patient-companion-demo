@@ -34,6 +34,7 @@ export type Patient = {
   nextVisitDisplay: string;
   steps: TreatmentStep[];
   greetingZh: string;
+  greetingJa: string;
   clinic: string;
 };
 

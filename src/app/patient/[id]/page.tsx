@@ -23,7 +23,7 @@ export default async function PatientPage({
           href="/"
           className="text-sm font-medium text-sky-700 hover:text-sky-900"
         >
-          ← Demo 入口
+          ← デモ入口
         </a>
         <span className="rounded-full bg-white/80 px-3 py-1 text-[11px] text-slate-500 ring-1 ring-slate-200">
           /patient/{patient.slug}
@@ -34,7 +34,7 @@ export default async function PatientPage({
       <TreatmentTimeline patient={patient} />
 
       <div className="flex min-h-[420px] flex-1 flex-col pb-4">
-        <ChatPanel patientId={patient.id} greeting={patient.greetingZh} />
+        <ChatPanel patientId={patient.id} greeting={patient.greetingJa} />
       </div>
     </main>
   );

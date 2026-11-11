@@ -4,7 +4,7 @@
     "slug": "yamada",
     "name": "山田太郎",
     "nameReading": "やまだ たろう",
-    "honorificJa": "山田先生",
+    "honorificJa": "山田さん",
     "honorificZh": "山田先生",
     "honorificEn": "Mr. Yamada",
     "gender": "male",
@@ -31,7 +31,8 @@
       { "id": 5, "label": "牙冠", "labelJa": "クラウン", "labelEn": "Crown", "status": "todo" }
     ],
     "greetingZh": "您好，山田先生。\n\n今天进行了：\n\n右上第一磨牙根管治疗。\n\n这是治疗计划：\n\n✅ 初诊\n✅ 神经处理\n🔄 根管清洗\n⬜ 充填\n⬜ 牙冠\n\n预计还需：\n\n2次治疗\n\n下次预约：\n\n12/01 14:00",
-    "clinic": "Dental Patient Companion Demo Clinic"
+    "greetingJa": "山田さん、こんにちは。\n\n本日の治療内容：\n\n右上第一大臼歯の根管治療を行いました。\n\n治療計画：\n\n✅ 初診\n✅ 神経処置\n🔄 根管洗浄\n⬜ 充填\n⬜ クラウン\n\n残り通院：\n\nあと2回\n\n次回予約：\n\n12/01 14:00",
+    "clinic": "デンタル・ペイシェント・コンパニオン デモ医院"
   },
   "sato": {
     "id": "sato",
@@ -65,6 +66,7 @@
       { "id": 5, "label": "上牙冠", "labelJa": "上部構造", "labelEn": "Crown placement", "status": "todo" }
     ],
     "greetingZh": "您好，佐藤女士。\n\n今天进行了：\n\n种植牙植体植入。\n\n这是治疗计划：\n\n✅ CT检查\n✅ 骨量评估\n🔄 植体植入\n⬜ 愈合\n⬜ 上牙冠\n\n预计还需：\n\n2次治疗\n\n下次预约：\n\n12/15 10:00",
-    "clinic": "Dental Patient Companion Demo Clinic"
+    "greetingJa": "佐藤さん、こんにちは。\n\n本日の治療内容：\n\nインプラント植体の埋入手術を行いました。\n\n治療計画：\n\n✅ CT検査\n✅ 骨量評価\n🔄 植体埋入\n⬜ 治癒期間\n⬜ 上部構造\n\n残り通院：\n\nあと2回\n\n次回予約：\n\n12/15 10:00",
+    "clinic": "デンタル・ペイシェント・コンパニオン デモ医院"
   }
 }

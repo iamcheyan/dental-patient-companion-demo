@@ -14,13 +14,13 @@ export default function HomePage() {
       patient: patients.find((p) => p.id === "yamada")!,
       qr: "patient-a.png",
       path: "/patient/yamada",
-      label: "二维码 A",
+      label: "QRコード A",
     },
     {
       patient: patients.find((p) => p.id === "sato")!,
       qr: "patient-b.png",
       path: "/patient/sato",
-      label: "二维码 B",
+      label: "QRコード B",
     },
   ];
 
@@ -31,11 +31,12 @@ export default function HomePage() {
           Dental Patient Companion Demo
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-          AI 如何持续陪伴患者理解自己的治疗过程
+          AI が治療の理解を、ずっとそばで支える
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-          扫码进入专属网页：今日治疗、阶段进度、下次预约，并可立即与 AI
-          对话。全部为 Mock 数据，不接入真实医院 / EMR / LINE / 数据库。聊天路由：
+          QR を読み取ると、患者専用ページが開きます。本日の治療・現在の段階・次回予約を確認し、すぐに
+          AI と会話できます。データはすべてモックで、実在の病院 / 電子カルテ / LINE /
+          データベースには接続しません。チャット経路：
           <code className="mx-1 rounded bg-slate-100 px-1.5 py-0.5 text-[13px]">
             magpie/default
           </code>
@@ -55,7 +56,7 @@ export default function HomePage() {
                 <h2 className="mt-1 text-xl font-semibold text-slate-900">
                   {patient.name}
                 </h2>
-                <p className="text-sm text-slate-500">{patient.treatment}</p>
+                <p className="text-sm text-slate-500">{patient.treatmentJa}</p>
               </div>
               <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs tabular-nums text-slate-600">
                 {progressPercent(patient)}%
@@ -74,7 +75,7 @@ export default function HomePage() {
                 />
               ) : (
                 <div className="flex h-[220px] w-[220px] items-center justify-center rounded-xl bg-white text-center text-xs text-slate-400 ring-1 ring-dashed ring-slate-200">
-                  运行 pnpm qr 生成
+                  pnpm qr で生成
                   <br />
                   {qr}
                 </div>
@@ -89,10 +90,10 @@ export default function HomePage() {
                 href={href}
                 className="inline-flex items-center justify-center rounded-2xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-700"
               >
-                打开患者页
+                患者ページを開く
               </a>
               <span className="inline-flex items-center rounded-2xl bg-white px-3 py-2 text-xs text-slate-500 ring-1 ring-slate-200">
-                下次 {patient.nextVisitDisplay}
+                次回 {patient.nextVisitDisplay}
               </span>
             </div>
           </article>
@@ -100,10 +101,10 @@ export default function HomePage() {
       </section>
 
       <section className="mt-10 rounded-3xl border border-dashed border-slate-300 bg-white/70 p-5 text-sm text-slate-600">
-        <h3 className="font-semibold text-slate-900">院长 5 秒价值链</h3>
+        <h3 className="font-semibold text-slate-900">院長が 5 秒で掴む価値</h3>
         <p className="mt-2 leading-relaxed">
-          病历信息 → AI 解释 → 患者理解 → 持续陪伴。重点是 Patient Companion
-          Agent，不是预约系统或医院管理系统。
+          カルテ情報 → AI の説明 → 患者の理解 → 継続的な寄り添い。焦点は Patient Companion
+          Agent であり、予約システムや病院管理システムではありません。
         </p>
       </section>
     </main>
