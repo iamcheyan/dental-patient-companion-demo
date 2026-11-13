@@ -1,148 +1,59 @@
 # Dental Patient Companion Demo
 
-向牙科诊所院长演示：**AI 如何持续陪伴患者理解自己的治疗过程**。
+向牙科诊所演示患者治疗陪伴流程。患者资料和回答均为 mock 数据，不连接真实医院、电子病历、LINE 或数据库。
 
-- 全部 Mock 数据（`/mock`），不接入真实医院 / EMR / LINE / 数据库
-- 聊天路由：`magpie/default`（本机 Magpie OpenAI-compatible → Hermes Agent）
-- 技术栈：Next.js · TypeScript · Tailwind
+- 本地运行：聊天走 Hermes Agent → Magpie `group/default`，并保留 mock 知识库兜底。
+- GitHub Pages：纯静态站点，聊天使用三语 mock 知识库，不需要或公开任何密钥。
+- 技术栈：Next.js、TypeScript、Tailwind CSS。
 
-## 患者入口
+## 患者页面
 
-| 二维码 | 患者 | 路径 | 图片 |
-| --- | --- | --- | --- |
-| A | 山田太郎 | `/patient/yamada` | `public/patient-a.png` |
-| B | 佐藤花子 | `/patient/sato` | `public/patient-b.png` |
+- 山田太郎：`/patient/yamada/`
+- 佐藤花子：`/patient/sato/`
 
-首页同时展示两枚二维码与直接链接。
+网站：<https://dental.iamcheyan.com/>
 
-## 1. 启动方法
+## 本地开发
 
 ```bash
 cd ~/development/dental-patient-companion-demo
 pnpm install
-
-# Magpie 网关密钥（本机已有时从环境加载即可）
-# export MAGPIE_GATEWAY_KEY=...   # 勿提交
-# 可选覆盖：
-# export MAGPIE_BASE_URL=http://127.0.0.1:3425/v1
-# export MAGPIE_MODEL=group/default
-
-pnpm qr          # 生成本地 URL 二维码
-pnpm dev         # http://127.0.0.1:3000
+pnpm dev
 ```
 
-生产模式：
+打开 <http://127.0.0.1:3000/>。若要走 Hermes，需要本机 Magpie 与 Hermes 配置可用；密钥只从本机私有环境加载，不要写入仓库。
+
+本地生产模式：
 
 ```bash
-pnpm build && pnpm start
-```
-
-确认 Magpie 在 loopback 监听（默认 `127.0.0.1:3425`），且模型列表包含 `group/default`。
-
-## 2. 二维码生成方法
-
-```bash
-# 本地
-PUBLIC_BASE_URL=http://127.0.0.1:3000 pnpm qr
-
-# Tailscale 暴露后（把主机名换成你的）
-PUBLIC_BASE_URL=https://debian.tailb4776a.ts.net:3010 pnpm qr
-```
-
-输出：
-
-- `public/patient-a.png` → `/patient/yamada`
-- `public/patient-b.png` → `/patient/sato`
-
-更换公网/ tailnet URL 后务必重新生成并刷新浏览器缓存。
-
-## 3. Tailscale Serve 配置方法（最小权限）
-
-只暴露 **当前 Next.js 端口**，禁止 SSH / Exit Node / Subnet Router / 整机 / 文件系统。
-
-```bash
-# 1) 本机只绑 loopback
 pnpm build
-PORT=3010 HOSTNAME=127.0.0.1 pnpm start
-
-# 2) 仅 tailnet 暴露该端口（优先 serve，不要 funnel 除非明确需要公网）
-sudo tailscale serve --bg --https=3010 http://127.0.0.1:3010
-
-# 查看
-tailscale serve status
+pnpm start
 ```
 
-手机需与本机同一 Tailscale tailnet，然后打开：
+Next 服务绑定 `127.0.0.1:3010`。Hermes 后端由 `src/app/api/chat/route.ts` 提供。
 
-```text
-https://<你的-magicdns主机名>:3010/
-```
+## Mock 问答
 
-并用同一 `PUBLIC_BASE_URL` 重新 `pnpm qr`。
+公开站点从 `mock/knowledge-base.json` 按问题匹配回答，支持中文、日语和英语。未配置的问题返回对应语言的固定演示提示，不会调用 Hermes 或外部模型。
 
-可选 funnel（公网，权限更大，默认不要开）：
+修改患者资料请编辑 `mock/patients.json`；修改问答请编辑 `mock/knowledge-base.json`。
+
+## 二维码
+
+二维码指向公开域名，可按需重新生成：
 
 ```bash
-# 仅在明确需要公网扫码时
-# sudo tailscale funnel --bg --https=3010 http://127.0.0.1:3010
+PUBLIC_BASE_URL=https://dental.iamcheyan.com pnpm qr
 ```
 
-## 4. 如何关闭外部访问
+生成结果写入 `public/patient-a.png` 与 `public/patient-b.png`。
 
-```bash
-sudo tailscale serve reset
-# 若开过 funnel：
-# sudo tailscale funnel reset
+## GitHub Pages 部署
 
-tailscale serve status   # 应不再指向 3010
-# 并停掉 Next 进程
-```
+推送到 `master` 后，`.github/workflows/pages.yml` 构建并部署静态网站。Pages 构建会临时排除本地 Hermes API 路由，并以 `NEXT_PUBLIC_MOCK_CHAT=true` 构建；仓库中的本地 API 源码仍保留，普通本地构建不受影响。
 
-注意：`serve reset` 会清掉本机所有 serve 规则。若机器上还有其它 serve 路径，请改用精确删除当前 3010 映射的方式，而不是整表 reset。
+自定义域名配置文件位于 `public/CNAME`。DNS 使用 `dental.iamcheyan.com` 指向 GitHub Pages。
 
-## Agent 行为（Hermes + Magpie）
+## 安全与适用范围
 
-聊天**不再直连 Magpie 裸 completion**。服务端调用：
-
-1. （若已启用）Hermes API Server `http://127.0.0.1:8642/v1` → 全量 Hermes Agent  
-2. 否则 `hermes chat --oneshot`（`--provider custom` + Magpie `group/default`）  
-3. 再否则本地 mock KB 兜底  
-
-产品名 `magpie/default` = 线缆模型 id `group/default`。
-
-环境变量（`.env.local`，不入库）：
-
-- `MAGPIE_GATEWAY_KEY` / `MAGPIE_BASE_URL` / `MAGPIE_MODEL=group/default`
-- `HERMES_API_BASE_URL` / `HERMES_API_KEY` / `HERMES_MODEL=hermes-agent`（API Server 启用后）
-
-启用 API Server（需在 **gateway 外** 的 shell 执行一次重启）：
-
-```bash
-# ~/.hermes/.env 已含 API_SERVER_ENABLED=true 与 key
-systemctl --user restart hermes-gateway.service
-```
-
-## Agent 行为
-
-- 不得编造患者信息；只使用 `mock/patients.json` + `mock/knowledge-base.json`
-- 自动识别中文 / 日语 / 英语，**用提问语言回答**
-- 知识库未覆盖时返回统一「演示环境未配置」提示（三语）
-
-## Mock 目录
-
-```text
-mock/
-  patients.json
-  knowledge-base.json
-```
-
-## 环境变量
-
-| 变量 | 默认 | 说明 |
-| --- | --- | --- |
-| `MAGPIE_GATEWAY_KEY` | （必填走模型） | Magpie API key |
-| `MAGPIE_BASE_URL` | `http://127.0.0.1:3425/v1` | OpenAI-compatible 根 |
-| `MAGPIE_MODEL` | `group/default` | 即 magpie/default |
-| `PUBLIC_BASE_URL` | `http://127.0.0.1:3000` | 二维码目标根 URL |
-
-密钥只放在本机环境或 `~/.env`，**不要写入仓库**。
+所有姓名、治疗经过、预约和问答均为演示数据。此站点不提供医疗诊断或治疗建议，也不应写入真实患者信息。不要提交 `.env.local`、API key、Token 或其他凭据。

@@ -1,8 +1,44 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import knowledgeBase from "../../mock/knowledge-base.json";
+import { detectLanguage, unknownReplies } from "@/lib/language";
+import type { DetectedLang, KnowledgeEntry } from "@/lib/types";
 
 type Msg = { role: "user" | "assistant"; content: string };
+
+const knowledge = knowledgeBase as Record<string, KnowledgeEntry[]>;
+
+function normalize(text: string) {
+  return text.toLowerCase().replace(/[？?！!。．.、,\s　]/g, "").trim();
+}
+
+function answerFromMock(patientId: string, question: string) {
+  const lang: DetectedLang = detectLanguage(question);
+  const normalizedQuestion = normalize(question);
+  const entries = knowledge[patientId] ?? [];
+  let best: { entry: KnowledgeEntry; score: number } | null = null;
+
+  for (const entry of entries) {
+    const candidates = [
+      ...entry.questions.zh,
+      ...entry.questions.ja,
+      ...entry.questions.en,
+    ];
+    for (const candidate of candidates) {
+      const normalizedCandidate = normalize(candidate);
+      if (!normalizedQuestion.includes(normalizedCandidate) && !normalizedCandidate.includes(normalizedQuestion)) continue;
+      const score = Math.min(normalizedQuestion.length, normalizedCandidate.length) / Math.max(normalizedQuestion.length, normalizedCandidate.length);
+      if (!best || score > best.score) best = { entry, score };
+    }
+  }
+
+  return best && best.score >= 0.35
+    ? best.entry.answers[lang]
+    : unknownReplies[lang];
+}
+
+const mockMode = process.env.NEXT_PUBLIC_MOCK_CHAT === "true";
 
 export function ChatPanel({
   patientId,
@@ -18,7 +54,9 @@ export function ChatPanel({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [routeLabel, setRouteLabel] = useState("Hermes · magpie/default");
+  const [routeLabel, setRouteLabel] = useState(
+    mockMode ? "Mock Q&A" : "Hermes · magpie/default",
+  );
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,6 +73,15 @@ export function ChatPanel({
     setMessages(history);
     setBusy(true);
     try {
+      if (mockMode) {
+        await Promise.resolve();
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: answerFromMock(patientId, content) },
+        ]);
+        return;
+      }
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -100,7 +147,7 @@ export function ChatPanel({
           <p className="text-xs text-slate-500">{routeLabel}</p>
         </div>
         <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700">
-          Hermes Agent · Mock
+          {mockMode ? "Mock Q&A · 3 languages" : "Hermes Agent · Mock"}
         </span>
       </header>
 

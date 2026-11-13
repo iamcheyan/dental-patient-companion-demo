@@ -34,13 +34,7 @@ export default function HomePage() {
           AI が治療の理解を、ずっとそばで支える
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-          QR を読み取ると、患者専用ページが開きます。本日の治療・現在の段階・次回予約を確認し、すぐに
-          AI と会話できます。データはすべてモックで、実在の病院 / 電子カルテ / LINE /
-          データベースには接続しません。チャット経路：
-          <code className="mx-1 rounded bg-slate-100 px-1.5 py-0.5 text-[13px]">
-            magpie/default
-          </code>
-          （Hermes Agent）。
+          QR を読み取ると、患者専用ページが開きます。本日の治療・現在の段階・次回予約を確認し、治療に関する質問にも回答します。データはすべてモックで、実在の病院 / 電子カルテ / LINE / データベースには接続しません。ローカル版は Hermes Agent を利用し、公開サイトは登録済みのモック回答を使います。
         </p>
       </header>
 
